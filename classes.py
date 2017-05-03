@@ -1,39 +1,34 @@
-import turtle
+class Board(object):
 
-class Board:#this class contains everything that is a part of the tic tac toe board
+    global gameover
 
-    def __init__(self):
-        self.u__init_board = []
+    def newboard(self):
+        #Setup a 9 element array to represent the board
+        self.board_values = ['-', '-', '-', '-', '-', '-', '-', '-', '-']
+
 
     def drawboard(self):
-        #This method will draw the tic tac toe board for the game to be played
-        t=turtle.Turtle()
-        t.ht()
-        t.up()
-        t.goto(-40,-40)
-        t.down()
-        t.forward(240)
-        t.left(90)
-        t.forward(240)
-        t.left(90)
-        t.forward(240)
-        t.left(90)
-        t.forward(80)
-        t.left(90)
-        t.forward(240)
-        t.right(90)
-        t.forward(80)
-        t.right(90)
-        t.forward(240)
-        t.left(90)
-        t.goto(-40,-40)
-        t.left(180)
-        t.forward(160)
-        t.up()
-        t.goto(40,-40)
-        t.down()
-        t.forward(240)
-        t.right(90)
-        t.forward(80)
-        t.right(90)
-        t.forward(240)
+        #print out the board
+        x = self.board_values
+        print(" " + x[0] + " " + "|" + " " + x[1] + " " + "|" + " " + x[2])
+        print("-----------")
+        print(" " + x[3] + " " + "|" + " " + x[4] + " " + "|" + " " + x[5])
+        print("-----------")
+        print(" " + x[6] + " " + "|" + " " + x[7] + " " + "|" + " " + x[8])
+
+    def move(self):
+        #asks play for move, updates the board
+        ask = int(input('Make a move (1-9):'))#ask
+        position = ask - 1 #python starts at 0, but the player doesnt know that
+        #check for repeated moves
+        if self.board_values[position] != '-':
+            print("Invalid move")
+        else:
+            self.board_values[position] = 'x'
+
+    def computermove(self):
+        #check the rows for winning moves
+        for i in range(3):
+            row = self.board_values[i*3: (i*3) + 3] #puts each row into a new index
+            if row.count("o") == 2 and row.count("-") == 1: #if any row has two o's and one empty space
+                print("i can win") #the computer recognizes that it can win

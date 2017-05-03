@@ -1,6 +1,13 @@
-import turtle
-import classes
+from classes import Board
 
-bazinga = classes.Board()
-bazinga.drawboard()
-input()
+gameover = False
+
+b = Board()
+b.newboard()
+b.drawboard()
+
+while gameover is False:
+    b.move()
+    b.drawboard()
+
+b.computermove()
