@@ -15,4 +15,4 @@ computer = Computer(c,b,bv)
 #     p.playermove()
 #     b.drawboard()
 
-computer.computermove()
+computer.computermove('o', 'x')

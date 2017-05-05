@@ -5,7 +5,7 @@ class Board(object):
 
     def __init__(self):
         #Setup a 9 element array to represent the board
-        self.board_values = ['-', '-', '-', '-', '-', '-', '-', '-', '-']
+        self.board_values = ['-', '-', 'o', '-', 'o', '-', '-', '-', '-']
 
 
     def drawboard(self):
@@ -42,15 +42,16 @@ class Computer:
         self.board = b
         self.board_values = bv
 
-    def computermove(self):
+    def computermove(self, computer_id, human_id):
+        print(self.winningmove(computer_id))
+
+    def winningmove(self, player_id):
         #check the rows for winning moves
         for i in range(3):
             row = self.board_values[i*3: (i*3) + 3] #puts each row into a new index
-            print('rows')
-            print(row)
-            if row.count("o") == 2 and row.count("-") == 1: #if any row has two o's and one empty space
-                print("i can win") #the computer recognizes that it can win
-                self.board_values[position] = 'o'
+            if row.count(player_id) == 2 and row.count("-") == 1: #if any row has two o's and one empty space
+                move = (3*i) + row.index('-')
+                return(move)
 
         column = []
 
@@ -59,23 +60,24 @@ class Computer:
             column.append(self.board_values[0 + i])
             column.append(self.board_values[3 + i])
             column.append(self.board_values[6 + i])
-            print('columns')
-            print(column)
-            if column.count("o") == 2 and column.count("-") == 1:
-                print("i can win")
-
-
-
+            if column.count(player_id) == 2 and column.count("-") == 1:
+                move = (3*i) + column.index('-')
+                return(move)
 
         diagonal1 = []
+
         diagonal1.append(self.board_values[0])
         diagonal1.append(self.board_values[4])
         diagonal1.append(self.board_values[8])
-        print('diagonals')
-        print(diagonal1)
+        if diagonal1.count(player_id) == 2 and diagonal1.count("-") == 1:
+            move = (4*diagonal1.index('-'))
+            return(move)
 
         diagonal2 = []
+
         diagonal2.append(self.board_values[2])
         diagonal2.append(self.board_values[4])
         diagonal2.append(self.board_values[6])
-        print(diagonal2)
+        if diagonal2.count(player_id) == 2 and diagonal2.count("-") == 1:
+            move = 2 + (2 * diagonal2.index('-'))
+            return(move)
