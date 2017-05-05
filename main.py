@@ -14,7 +14,10 @@ computer = Computer(c,b,bv)
 print("Welcome to Ben's AI tic tac toe game.")
 print("You are X and the computer is O.")
 print("You will enter a move number from 1-9 starting at the top left of the board")
-start = input("Press 1 to start:")
+start = "0"
+while start != "1":
+    start = input("Press 1 to start:")
+
 if start == '1':
     while movenum < 9 and winner == "":
         p.playermove()
@@ -38,3 +41,6 @@ if start == '1':
         print("It is a tie!")
     else:
         print("The winner is " + str(winner))
+
+else:
+    print("Please press 1:")

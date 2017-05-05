@@ -27,7 +27,7 @@ class Player:
 
     def playermove(self):
         #asks play for move, updates the board
-        ask = int(input('Make a move (1-9):'))#ask
+        ask = int(input('Make a move (1-9):'))
         position = ask - 1 #python starts at 0, but the player doesnt know that
         #check for repeated moves
         if self.board_values[position] != '-':
@@ -35,6 +35,7 @@ class Player:
             self.playermove()
         else:
             self.board_values[position] = 'x'
+
 
 
 
