@@ -2,7 +2,7 @@
 
 class Board(object):
 
-    global gameover
+    global movenum
 
 
     def __init__(self):
@@ -32,6 +32,7 @@ class Player:
         #check for repeated moves
         if self.board_values[position] != '-':
             print("Invalid move")
+            self.playermove()
         else:
             self.board_values[position] = 'x'
 
@@ -58,6 +59,7 @@ class Computer:
             self.board_values[k] = computer_id
 
 
+
     def winningmove(self, player_id):
         #check the rows for winning moves
         for i in range(3):
@@ -74,7 +76,7 @@ class Computer:
             column.append(self.board_values[3 + i])
             column.append(self.board_values[6 + i])
             if column.count(player_id) == 2 and column.count("-") == 1:
-                move = (3*i) + column.index('-')
+                move = (i) + (3*column.index('-'))
                 return(move)
 
         diagonal1 = []
