@@ -1,3 +1,5 @@
+
+
 class Board(object):
 
     global gameover
@@ -5,7 +7,7 @@ class Board(object):
 
     def __init__(self):
         #Setup a 9 element array to represent the board
-        self.board_values = ['-', '-', 'o', '-', 'o', '-', '-', '-', '-']
+        self.board_values = ['-', '-', '-', '-', '-', '-', '-', '-', '-']
 
 
     def drawboard(self):
@@ -43,7 +45,18 @@ class Computer:
         self.board_values = bv
 
     def computermove(self, computer_id, human_id):
-        print(self.winningmove(computer_id))
+        #check to see if the computer has a winning move
+        i = self.winningmove(computer_id)
+        j = self.winningmove(human_id)
+
+        if i is not None:
+            self.board_values[i] = computer_id
+        elif j is not None:
+            self.board_values[j] = computer_id
+        else:
+            k = self.board_values.index('-')
+            self.board_values[k] = computer_id
+
 
     def winningmove(self, player_id):
         #check the rows for winning moves

@@ -8,7 +8,6 @@ b = Board()
 p = Player(b.board_values)
 c = Player(b.board_values)
 bv = b.board_values
-b.drawboard()
 computer = Computer(c,b,bv)
 
 # while gameover is False:
@@ -16,3 +15,4 @@ computer = Computer(c,b,bv)
 #     b.drawboard()
 
 computer.computermove('o', 'x')
+b.drawboard()
