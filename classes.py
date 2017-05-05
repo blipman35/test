@@ -3,7 +3,7 @@
 class Board(object):
 
     global movenum
-
+    global winner
 
     def __init__(self):
         #Setup a 9 element array to represent the board
@@ -48,17 +48,22 @@ class Computer:
     def computermove(self, computer_id, human_id):
         #check to see if the computer has a winning move
         i = self.winningmove(computer_id)
+        #Check to see if the player has a winning move next
         j = self.winningmove(human_id)
 
         if i is not None:
+            #make the winning move
             self.board_values[i] = computer_id
         elif j is not None:
+            #make move to block the players winning move
             self.board_values[j] = computer_id
         else:
-            k = self.board_values.index('-')
-            self.board_values[k] = computer_id
-
-
+            if self.nextmove(computer_id) is not None:
+                k = self.nextmove(computer_id)
+                self.board_values[k] = computer_id
+            else:
+                k = self.board_values.index('-')
+                self.board_values[k] = computer_id
 
     def winningmove(self, player_id):
         #check the rows for winning moves
@@ -69,7 +74,6 @@ class Computer:
                 return(move)
 
         column = []
-
         for i in range(0,3):
             column = []
             column.append(self.board_values[0 + i])
@@ -94,5 +98,74 @@ class Computer:
         diagonal2.append(self.board_values[4])
         diagonal2.append(self.board_values[6])
         if diagonal2.count(player_id) == 2 and diagonal2.count("-") == 1:
+            move = 2 + (2 * diagonal2.index('-'))
+            return(move)
+
+    def testwin(self, player_id):
+        #check the rows for winning moves
+        for i in range(3):
+            row = self.board_values[i*3: (i*3) + 3] #puts each row into a new index
+            if row.count(player_id) == 3:
+                return('yes')
+
+        column = []
+
+        for i in range(0,3):
+            column = []
+            column.append(self.board_values[0 + i])
+            column.append(self.board_values[3 + i])
+            column.append(self.board_values[6 + i])
+            if column.count(player_id) == 3:
+                return('yes')
+
+        diagonal1 = []
+
+        diagonal1.append(self.board_values[0])
+        diagonal1.append(self.board_values[4])
+        diagonal1.append(self.board_values[8])
+        if diagonal1.count(player_id) == 3:
+            return('yes')
+
+        diagonal2 = []
+
+        diagonal2.append(self.board_values[2])
+        diagonal2.append(self.board_values[4])
+        diagonal2.append(self.board_values[6])
+        if diagonal2.count(player_id) == 3:
+            return('yes')
+
+    def nextmove(self, player_id):
+        #check the rows for winning moves
+        for i in range(3):
+            row = self.board_values[i*3: (i*3) + 3] #puts each row into a new index
+            if row.count(player_id) == 1 and row.count("-") == 2:
+                move = (3*i) + row.index('-')
+                return(move)
+
+        column = []
+        for i in range(0,3):
+            column = []
+            column.append(self.board_values[0 + i])
+            column.append(self.board_values[3 + i])
+            column.append(self.board_values[6 + i])
+            if column.count(player_id) == 1 and column.count("-") == 2:
+                move = (i) + (3*column.index('-'))
+                return(move)
+
+        diagonal1 = []
+
+        diagonal1.append(self.board_values[0])
+        diagonal1.append(self.board_values[4])
+        diagonal1.append(self.board_values[8])
+        if diagonal1.count(player_id) == 1 and diagonal1.count("-") == 2:
+            move = (4*diagonal1.index('-'))
+            return(move)
+
+        diagonal2 = []
+
+        diagonal2.append(self.board_values[2])
+        diagonal2.append(self.board_values[4])
+        diagonal2.append(self.board_values[6])
+        if diagonal2.count(player_id) == 1 and diagonal2.count("-") == 2:
             move = 2 + (2 * diagonal2.index('-'))
             return(move)
